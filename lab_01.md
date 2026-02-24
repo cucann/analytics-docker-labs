@@ -17,6 +17,17 @@
 
 <img width="512" height="60" alt="image" src="https://github.com/user-attachments/assets/ae8a5b1e-fb71-401e-ae29-de86a0aba314" />  
 
+**Команда docker images:**  
+<img width="566" height="108" alt="image" src="https://github.com/user-attachments/assets/51ef938b-47e4-4195-8590-91adb264c951" />  
+
+**Команда docker ps:**  
+<img width="572" height="117" alt="image" src="https://github.com/user-attachments/assets/15ea0f86-74c3-4daf-aa0c-1d138c39f77e" />
+
+**Команда docker ps -a:**  
+<img width="570" height="156" alt="image" src="https://github.com/user-attachments/assets/1fb0daf1-2cf6-49a4-b0c3-46bb48d28bbd" />
+
+
+
 **Загрузка образа ClickHouse:**  
 <img width="568" height="249" alt="image" src="https://github.com/user-attachments/assets/0bd330e7-d50e-4979-98cf-e3a0e991e058" />
 
