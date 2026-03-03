@@ -333,16 +333,16 @@ support_tickets.csv — полные данные о тикетах (60 запи
 analytics_report.txt — структурированный аналитический отчет:  
 <img width="527" height="537" alt="image" src="https://github.com/user-attachments/assets/baabb87c-3d51-4709-8f77-18e77af2ad62" />  
 
-## Визуализация результатов  
-# Была выполнена визуализация результатов выгруженного csv файла с помощью plotly.js, графики интерактивны    
+## Визуализация результатов    
+Была выполнена визуализация результатов выгруженного csv файла с помощью plotly.js, графики интерактивны    
 # Распределение тикетов по категориям
 <img width="848" height="509" alt="image" src="https://github.com/user-attachments/assets/556f67b3-5715-4043-b4a9-14483a868670" />  
 
 # Распределение времени реакции и решений по категориям  
-<img width="1186" height="546" alt="image" src="https://github.com/user-attachments/assets/ae6a171c-d245-447a-83ea-913b705f5479" />
+<img width="1186" height="546" alt="image" src="https://github.com/user-attachments/assets/ae6a171c-d245-447a-83ea-913b705f5479" />  
 
 # 3д визуализация времени реакции, времени решения и оценки решения проблемы  
-<img width="689" height="481" alt="image" src="https://github.com/user-attachments/assets/666e5afc-96a6-4179-a25c-afd26771f0d1" />
+<img width="689" height="481" alt="image" src="https://github.com/user-attachments/assets/666e5afc-96a6-4179-a25c-afd26771f0d1" />  
 
 
 ## Выводы  
