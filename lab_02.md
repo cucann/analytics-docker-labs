@@ -333,8 +333,141 @@ support_tickets.csv — полные данные о тикетах (60 запи
 analytics_report.txt — структурированный аналитический отчет:  
 <img width="527" height="537" alt="image" src="https://github.com/user-attachments/assets/baabb87c-3d51-4709-8f77-18e77af2ad62" />  
 
-## Визуализация результатов    
-Была выполнена визуализация результатов выгруженного csv файла с помощью plotly.js, графики интерактивны    
+## Визуализация результатов в стримлите  
+
+
+```bash
+cd ~/Desktop/lab_02.1
+nano dashboard.py
+```   
+
+<details>
+  <summary> <u> ___Код dashboard.py___ </u> </summary>
+  
+  ```py
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+
+st.set_page_config(page_title="Support Analytics Dashboard", layout="wide")
+
+st.title("Дашборд анализа службы поддержки")
+st.markdown("---")
+
+# Загрузка данных
+@st.cache_data
+def load_data():
+    df = pd.read_csv("results/support_tickets.csv")
+    return df
+
+try:
+    df = load_data()
+    st.success(f"Загружено {len(df)} записей")
+except:
+    st.error("Файл support_tickets.csv не найден. Сначала запусти R-скрипт")
+    st.stop()
+
+# Сайдбар с фильтрами
+st.sidebar.header("Фильтры")
+categories = st.sidebar.multiselect(
+    "Выберите категории",
+    options=df['category'].unique(),
+    default=df['category'].unique()
+)
+
+filtered_df = df[df['category'].isin(categories)]
+
+# Метрики
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Всего тикетов", len(filtered_df))
+col2.metric("Среднее время реакции", f"{filtered_df['response_time'].mean():.1f} ч")
+col3.metric("Среднее время решения", f"{filtered_df['resolution_time'].mean():.1f} ч")
+col4.metric("Средняя оценка", f"{filtered_df['satisfaction'].mean():.2f}")
+
+st.markdown("---")
+
+# Два графика в ряд
+col_left, col_right = st.columns(2)
+
+with col_left:
+    st.subheader("Распределение по категориям")
+    cat_counts = filtered_df['category'].value_counts().reset_index()
+    cat_counts.columns = ['category', 'count']
+    fig1 = px.pie(cat_counts, values='count', names='category', 
+                  title="Тикеты по категориям",
+                  color_discrete_sequence=px.colors.qualitative.Set3)
+    st.plotly_chart(fig1, use_container_width=True)
+
+with col_right:
+    st.subheader("Распределение оценок")
+    rating_counts = filtered_df['satisfaction'].value_counts().sort_index().reset_index()
+    rating_counts.columns = ['satisfaction', 'count']
+    fig2 = px.bar(rating_counts, x='satisfaction', y='count',
+                  title="Оценки клиентов",
+                  labels={'satisfaction': 'Оценка', 'count': 'Количество'},
+                  color='satisfaction',
+                  color_continuous_scale='Viridis')
+    st.plotly_chart(fig2, use_container_width=True)
+
+# Корреляционная матрица
+st.markdown("---")
+st.subheader("Корреляционная матрица метрик")
+
+# Выбираем только числовые колонки
+numeric_cols = ['response_time', 'resolution_time', 'satisfaction']
+corr_matrix = filtered_df[numeric_cols].corr()
+
+fig3 = px.imshow(
+    corr_matrix,
+    text_auto=True,
+    aspect="auto",
+    color_continuous_scale='RdBu_r',
+    title="Корреляция между временем реакции, решения и оценкой",
+    labels=dict(x="Метрики", y="Метрики", color="Корреляция")
+)
+st.plotly_chart(fig3, use_container_width=True)
+
+# Детальный анализ по категориям
+st.markdown("---")
+st.subheader("Статистика по категориям")
+
+stats = filtered_df.groupby('category').agg({
+    'response_time': ['mean', 'std'],
+    'resolution_time': ['mean', 'std'],
+    'satisfaction': ['mean', 'count']
+}).round(2)
+
+# Форматируем названия колонок
+stats.columns = ['Ср. время реакции', 'Std реакция', 
+                 'Ср. время решения', 'Std решение',
+                 'Ср. оценка', 'Кол-во']
+st.dataframe(stats, use_container_width=True)
+
+st.markdown("---")
+st.caption(f"Дашборд обновлен: {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S')}")
+  ```
+  
+</details>
+
+# Cоздала файл с зависимостями  
+<img width="553" height="110" alt="image" src="https://github.com/user-attachments/assets/93b0463e-2046-4b79-86c8-fe01b9081cab" />
+
+# Создала Dockerfile.streamlit  
+<img width="634" height="245" alt="image" src="https://github.com/user-attachments/assets/170f9e35-74ea-4569-b0db-d6d2f1904896" />
+
+# Запустила контейнер с дашбордом  
+```bash
+docker run -d -p 8505:8501 --name dashboard-final support-dashboard
+```
+<img width="648" height="44" alt="image" src="https://github.com/user-attachments/assets/2653a173-7593-4bb4-b1ce-f8f032e5f59b" />  
+
+# Визуализация графиков  
+<img width="1466" height="793" alt="image" src="https://github.com/user-attachments/assets/47180f70-96df-440a-ae08-3272bfd99f29" />
+<img width="1246" height="426" alt="image" src="https://github.com/user-attachments/assets/1ea49a0a-9721-452b-b694-44969b3ec9d6" />
+<img width="1228" height="384" alt="image" src="https://github.com/user-attachments/assets/b06ee7e6-d843-44bd-950c-1768d0a788df" />
+
+
 # Распределение тикетов по категориям
 <img width="743" height="410" alt="image" src="https://github.com/user-attachments/assets/152582bf-d832-40a4-bc0c-3fc0e2101755" />  
 
