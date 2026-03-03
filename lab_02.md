@@ -465,17 +465,7 @@ docker run -d -p 8505:8501 --name dashboard-final support-dashboard
 # Визуализация графиков  
 <img width="1466" height="793" alt="image" src="https://github.com/user-attachments/assets/47180f70-96df-440a-ae08-3272bfd99f29" />
 <img width="1246" height="426" alt="image" src="https://github.com/user-attachments/assets/1ea49a0a-9721-452b-b694-44969b3ec9d6" />
-<img width="1228" height="384" alt="image" src="https://github.com/user-attachments/assets/b06ee7e6-d843-44bd-950c-1768d0a788df" />
-
-
-# Распределение тикетов по категориям
-<img width="743" height="410" alt="image" src="https://github.com/user-attachments/assets/152582bf-d832-40a4-bc0c-3fc0e2101755" />  
-
-# Распределение времени реакции и решений по категориям  
-<img width="1186" height="546" alt="image" src="https://github.com/user-attachments/assets/ae6a171c-d245-447a-83ea-913b705f5479" />  
-
-# 3д визуализация времени реакции, времени решения и оценки решения проблемы  
-<img width="689" height="481" alt="image" src="https://github.com/user-attachments/assets/666e5afc-96a6-4179-a25c-afd26771f0d1" />  
+<img width="1228" height="384" alt="image" src="https://github.com/user-attachments/assets/b06ee7e6-d843-44bd-950c-1768d0a788df" />  
 
 
 ## Выводы  
