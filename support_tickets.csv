@@ -1,0 +1,61 @@
+"ticket_id","category","response_time","resolution_time","satisfaction"
+"TICKET-1001","Feature Request",2.68,40.71,4
+"TICKET-1002","Feature Request",3.06,18.29,4
+"TICKET-1003","Technical",3.55,31.8,5
+"TICKET-1004","General",1.09,40.69,5
+"TICKET-1005","Billing",2.76,10.67,2
+"TICKET-1006","Billing",0.58,13.67,2
+"TICKET-1007","General",0.82,10.42,5
+"TICKET-1008","Technical",0.72,6.49,5
+"TICKET-1009","Billing",1.62,24.96,5
+"TICKET-1010","General",2.05,31.84,5
+"TICKET-1011","Billing",2.31,38.41,5
+"TICKET-1012","General",1.46,36.54,1
+"TICKET-1013","Feature Request",3.14,11.96,4
+"TICKET-1014","Technical",0.91,46.18,5
+"TICKET-1015","Billing",0.05,16,5
+"TICKET-1016","Feature Request",2.65,25.27,2
+"TICKET-1017","Feature Request",0.78,18.93,5
+"TICKET-1018","Technical",4.17,22.53,4
+"TICKET-1019","Billing",1.35,26.26,2
+"TICKET-1020","Billing",2.98,25.43,1
+"TICKET-1021","Feature Request",2.48,23.7,4
+"TICKET-1022","Technical",0.82,25.3,5
+"TICKET-1023","Feature Request",4.36,18.17,5
+"TICKET-1024","Feature Request",2.96,17.95,5
+"TICKET-1025","Technical",2.13,4.07,4
+"TICKET-1026","Billing",2.41,19.41,2
+"TICKET-1027","Technical",3.02,17.85,5
+"TICKET-1028","Feature Request",2.13,56.42,3
+"TICKET-1029","Billing",2.49,7.65,3
+"TICKET-1030","General",2.43,25.65,3
+"TICKET-1031","General",1.45,6.08,2
+"TICKET-1032","General",2.28,6.35,5
+"TICKET-1033","Technical",2.87,25.5,5
+"TICKET-1034","Billing",4.1,12.04,5
+"TICKET-1035","Technical",0.91,23.98,4
+"TICKET-1036","General",3.95,18.86,4
+"TICKET-1037","Technical",2.5,16.64,4
+"TICKET-1038","Technical",3.56,0.3,5
+"TICKET-1039","Feature Request",3.38,9.3,3
+"TICKET-1040","Billing",3.08,26.15,5
+"TICKET-1041","Technical",0.44,30.81,4
+"TICKET-1042","Billing",1.86,18.09,5
+"TICKET-1043","Technical",2.94,24,3
+"TICKET-1044","Feature Request",0.57,37.47,5
+"TICKET-1045","Billing",1.19,41.28,5
+"TICKET-1046","Feature Request",2.87,10.83,5
+"TICKET-1047","General",3.15,22.59,1
+"TICKET-1048","Billing",2.7,38.42,5
+"TICKET-1049","Feature Request",0.67,18.36,3
+"TICKET-1050","Billing",0.35,23.37,2
+"TICKET-1051","Technical",4.27,22.97,4
+"TICKET-1052","Technical",2.39,13.35,4
+"TICKET-1053","Technical",2.13,18.66,5
+"TICKET-1054","General",1.82,23.65,5
+"TICKET-1055","Technical",0.21,19.03,3
+"TICKET-1056","General",2.92,37.36,4
+"TICKET-1057","Billing",1.67,18.23,4
+"TICKET-1058","Technical",1.73,18.8,1
+"TICKET-1059","Technical",3.4,32.36,4
+"TICKET-1060","Billing",3.23,11.32,4
