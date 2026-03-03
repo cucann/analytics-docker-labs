@@ -265,26 +265,12 @@ results/
   
 </details>  
 
-### 4. Пояснение по зависимостям
-
-Так как проект написан на **R**, файл `requirements.txt` не требуется. Зависимости (библиотеки `dplyr` и `tidyr`) указываются непосредственно в скрипте и устанавливаются двумя способами:
-
-1. **При сборке образа** — через `RUN Rscript -e "install.packages(...)"` в Dockerfile  
-   (пакеты устанавливаются один раз при сборке и попадают в образ)
-
-2. **При запуске скрипта** — через `if (!require(...)) install.packages(...)`  
-   (как запасной вариант, если пакеты вдруг отсутствуют)
-
-Это обеспечивает:
-- ✅ **Надёжность** — скрипт сам позаботится об установке пакетов
-- ✅ **Оптимизацию** — пакеты уже есть в образе, не тратится время при запуске
-- ✅ **Воспроизводимость** — на любой машине с Docker всё будет работать одинаково
 
 ---
 
-## Ход выполнения работы
+### Ход выполнения работы
 
-### 1. Создание структуры проекта
+## 1. Создание структуры проекта
 
 ```bash
 cd ~/Desktop
@@ -296,10 +282,10 @@ touch Dockerfile .dockerignore
 </details> 
 <img width="567" height="165" alt="image" src="https://github.com/user-attachments/assets/6aee0863-128b-47ca-b040-df69697305f8" />  
 
-### 2. Написание аналитического скрипта
+## 2. Написание аналитического скрипта
 Скрипт app/analyze_support.R создан и содержит все необходимые функции для генерации данных и расчета метрик.
 
-### 3. Создание Dockerfile
+## 3. Создание Dockerfile
 Оптимизированный Dockerfile включает:
 
 *Минимальный базовый образ rocker/r-ver (экономия места)*
@@ -312,7 +298,7 @@ touch Dockerfile .dockerignore
 
 <img width="640" height="377" alt="image" src="https://github.com/user-attachments/assets/8a16a5dd-aed8-476b-b6dc-eae111856c05" />  
 
-### 4. Сборка Docker-образа
+## 4. Сборка Docker-образа
 ```bash
 docker build -t support-analytics:v1 .
   ```
@@ -321,7 +307,7 @@ docker build -t support-analytics:v1 .
 
 <img width="599" height="277" alt="image" src="https://github.com/user-attachments/assets/e3c5e606-cd9b-457c-b156-467d95fe59ea" />
 
-### 5. Запуск контейнера
+## 5. Запуск контейнера
 ```bash
 docker run --name support-analysis support-analytics:v1
   ```
@@ -330,26 +316,33 @@ docker run --name support-analysis support-analytics:v1
 
 <img width="700" height="354" alt="image" src="https://github.com/user-attachments/assets/b636861d-5fd7-4cd6-af24-f536d1129704" />
 
-### Просмотр результатов из папки results  
-*analytics_report.txt*
+## Просмотр результатов из папки results  
+**analytics_report.txt**    
 <img width="530" height="562" alt="image" src="https://github.com/user-attachments/assets/c9e191af-2a82-426a-86dc-fc742832c79d" />
 
-*support_tickets.csv*
+**support_tickets.csv**    
 <img width="522" height="114" alt="image" src="https://github.com/user-attachments/assets/d7c1c518-f52a-4729-8e2e-a476f17f186e" />
 
-### Результаты работы
+## Результаты работы
 ## Вывод в консоль при запуске:
 <img width="559" height="641" alt="image" src="https://github.com/user-attachments/assets/ca33c58b-0592-4a28-aa1a-a58c186f9527" />  
 <img width="464" height="214" alt="image" src="https://github.com/user-attachments/assets/43a7e9d1-8ec4-48c8-b14b-eef65faca10d" />
 
-## Созданные файлы:
-support_tickets.csv — полные данные о тикетах (60 записей, 5 полей)
-analytics_report.txt — структурированный аналитический отчет:
+## Созданные файлы:  
+support_tickets.csv — полные данные о тикетах (60 записей, 5 полей)  
+analytics_report.txt — структурированный аналитический отчет:  
 <img width="527" height="537" alt="image" src="https://github.com/user-attachments/assets/baabb87c-3d51-4709-8f77-18e77af2ad62" />  
 
-### Выводы
-В ходе выполнения работы был разработан аналитический скрипт на языке R для генерации и анализа данных службы поддержки, а также создан Dockerfile для контейнеризации приложения. Собранный Docker-образ успешно запускается, выполняет расчет метрик (среднее время реакции и решения, корреляцию, распределение оценок) и сохраняет результаты в CSV и текстовый файл, что подтверждает корректность настройки всех компонентов и достижение цели работы.  
+## Выводы  
+В ходе выполнения работы был разработан аналитический скрипт на языке R для генерации и анализа данных службы поддержки, а также создан Dockerfile для контейнеризации приложения. Собранный Docker-образ успешно запускается, выполняет расчет метрик (среднее время реакции и решения, корреляцию, распределение оценок) и сохраняет результаты в CSV и текстовый файл, что подтверждает корректность настройки всех компонентов и достижение цели работы.    
 
 
+## Приложение  
+
+* [Файл analyze_support.R](/app/analyze_support.R) аналитический скрипт на R  
+* [Файл Dockerfile](/Dockerfile) инструкции для сборки образа  
+* [Файл .dockerignore](/.dockerignore) исключаемые файлы  
+* [analytics_report.txt](analytics_report.txt) аналитический отчет  
+* [support_tickets.csv](support_tickets.csv) сгенерированные данные
 
 
