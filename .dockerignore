@@ -1,0 +1,10 @@
+.git
+.gitignore
+README.md
+REPORT.md
+.DS_Store
+results/
+*.Rproj
+.Rhistory
+.RData
+.Ruserdata
