@@ -336,7 +336,7 @@ analytics_report.txt — структурированный аналитичес
 ## Визуализация результатов    
 Была выполнена визуализация результатов выгруженного csv файла с помощью plotly.js, графики интерактивны    
 # Распределение тикетов по категориям
-<img width="848" height="509" alt="image" src="https://github.com/user-attachments/assets/556f67b3-5715-4043-b4a9-14483a868670" />  
+<img width="743" height="410" alt="image" src="https://github.com/user-attachments/assets/152582bf-d832-40a4-bc0c-3fc0e2101755" />  
 
 # Распределение времени реакции и решений по категориям  
 <img width="1186" height="546" alt="image" src="https://github.com/user-attachments/assets/ae6a171c-d245-447a-83ea-913b705f5479" />  
