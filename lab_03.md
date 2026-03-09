@@ -160,15 +160,23 @@ kubectl apply -f services.yaml
 
 ### Состояние подов  
 <img width="629" height="140" alt="image" src="https://github.com/user-attachments/assets/d05e75c6-7850-4785-8388-3cedf7e77bcd" />  
-*Все поды в статусе Running*  
+
+*Все поды в статусе Running* 
+
 ### Состояние сервисов  
+
 <img width="582" height="145" alt="image" src="https://github.com/user-attachments/assets/c94b3c26-3c1e-4f76-b9c2-14bff3696c3a" />  
+
 *Сервисы успешно созданы*  
+
 ### Работающий Mongo Express  
+
 *Вход в систему*  
+
 <img width="1306" height="794" alt="image" src="https://github.com/user-attachments/assets/79092d46-3cf7-487c-b2b7-f388ced70cc5" />  
 
 <img width="1470" height="779" alt="Снимок экрана 2026-03-09 в 19 10 39" src="https://github.com/user-attachments/assets/437fc37e-4a8c-425f-936a-abab9f9d71ca" />  
+
 *Веб-интерфейс Mongo Express*  
 
 ## 5. Создание и проверка тестовых данных
@@ -196,19 +204,27 @@ db.metrics.insertMany([
 db.metrics.find().pretty()
 ```
 
-**Результат выполнения команд:**
-<img width="506" height="312" alt="image" src="https://github.com/user-attachments/assets/ecd9f3d5-7b3b-4557-9fcf-dc7e91af2b3f" />
+**Результат выполнения команд:**  
+
+<img width="506" height="312" alt="image" src="https://github.com/user-attachments/assets/ecd9f3d5-7b3b-4557-9fcf-dc7e91af2b3f" />  
+
 <img width="450" height="310" alt="image" src="https://github.com/user-attachments/assets/f5aef68a-0f98-4719-a10b-4e98206aaa27" />  
 
-### 5.2 Просмотр данных через веб-интерфейс Mongo Express
-После создания данных через командную строку, они были проверены в веб-интерфейсе Mongo Express
+### 5.2 Просмотр данных через веб-интерфейс Mongo Express  
 
-<img width="1177" height="357" alt="image" src="https://github.com/user-attachments/assets/205e21be-e48a-48be-b55b-bd611cab2d66" />
-**В главном окне выбрана база данных analytics_db, выбрана коллекция metrics, отобразились три ранее созданных документа**
-<img width="1261" height="766" alt="image" src="https://github.com/user-attachments/assets/864322fb-9c1d-4e80-bea7-faa1c41b09e6" />
+После создания данных через командную строку, они были проверены в веб-интерфейсе Mongo Express  
+
+<img width="1177" height="357" alt="image" src="https://github.com/user-attachments/assets/205e21be-e48a-48be-b55b-bd611cab2d66" />  
+
+**В главном окне выбрана база данных analytics_db, выбрана коллекция metrics, отобразились три ранее созданных документа**  
+
+<img width="1261" height="766" alt="image" src="https://github.com/user-attachments/assets/864322fb-9c1d-4e80-bea7-faa1c41b09e6" />  
+
 
 **Добавление тестового документа: выбрана коллекция test_collection и вставлен JSON-документ**  
-<img width="1119" height="454" alt="image" src="https://github.com/user-attachments/assets/ad689c39-9c5a-42dd-83cf-771a4ad37d47" />
+
+<img width="1119" height="454" alt="image" src="https://github.com/user-attachments/assets/ad689c39-9c5a-42dd-83cf-771a4ad37d47" />  
+
 
 ## Выводы
 В ходе выполнения лабораторной работы были получены практические навыки создания манифестов Kubernetes для развертывания приложений, использования Secrets для хранения конфиденциальной информации и настройки сетевого взаимодействия между сервисами через ClusterIP и LoadBalancer. Также освоена работа с NoSQL базой данных MongoDB в Kubernetes и организация внешнего доступа к веб-интерфейсу Mongo Express.
