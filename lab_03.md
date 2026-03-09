@@ -158,14 +158,14 @@ kubectl apply -f services.yaml
 
 ## 4. Результаты
 
-### Состояние подов
+### Состояние подов  
 <img width="629" height="140" alt="image" src="https://github.com/user-attachments/assets/d05e75c6-7850-4785-8388-3cedf7e77bcd" />  
 *Все поды в статусе Running*  
-### Состояние сервисов
-<img width="582" height="145" alt="image" src="https://github.com/user-attachments/assets/c94b3c26-3c1e-4f76-b9c2-14bff3696c3a" />
+### Состояние сервисов  
+<img width="582" height="145" alt="image" src="https://github.com/user-attachments/assets/c94b3c26-3c1e-4f76-b9c2-14bff3696c3a" />  
 *Сервисы успешно созданы*  
 ### Работающий Mongo Express  
-*Вход в систему*
+*Вход в систему*  
 <img width="1306" height="794" alt="image" src="https://github.com/user-attachments/assets/79092d46-3cf7-487c-b2b7-f388ced70cc5" />  
 
 <img width="1470" height="779" alt="Снимок экрана 2026-03-09 в 19 10 39" src="https://github.com/user-attachments/assets/437fc37e-4a8c-425f-936a-abab9f9d71ca" />  
