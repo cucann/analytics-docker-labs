@@ -9,6 +9,49 @@
 Освоить процесс оркестрации контейнеров в Kubernetes, научиться разворачивать связку NoSQL базы данных с веб-интерфейсом.  
 
 ## Ход выполнения
+### Архитектура решения  
+```mermaid
+graph TD
+    %% Определение цветов
+    classDef config fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef db fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef app fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef web fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef user fill:#ffebee,stroke:#c62828,stroke-width:2px;
+
+    subgraph K8s_Cluster ["K8s Cluster (Docker Desktop)"]
+        
+        subgraph Configs ["Конфигурация"]
+            SEC["Secret<br/>(mongodb-secret)"]
+        end
+
+        subgraph Database ["Слой данных"]
+            DB_POD("MongoDB Pod<br/>port 27017")
+            DB_SVC{"mongodb-service<br/>ClusterIP"}
+        end
+
+        subgraph WebUI ["Веб-интерфейс"]
+            WEB_POD("Mongo Express Pod<br/>port 8081")
+            WEB_SVC{"mongo-express-service<br/>LoadBalancer"}
+        end
+
+        %% Связи
+        SEC -.-> DB_POD:::config
+        SEC -.-> WEB_POD:::config
+        DB_POD --- DB_SVC:::db
+        WEB_POD -->|Чтение/Запись| DB_SVC:::web
+        WEB_POD --- WEB_SVC:::web
+    end
+
+    User(("Аналитик")) -->|http://localhost| WEB_SVC:::user
+    Developer(("Разработчик")) -->|kubectl exec| DB_POD:::user
+
+    %% Применение стилей
+    class SEC config;
+    class DB_POD,DB_SVC db;
+    class WEB_POD,WEB_SVC web;
+    class User,Developer user;
+```
 
 ## 1. Подготовка окружения
 Проверка работы Kubernetes в Docker Desktop:
