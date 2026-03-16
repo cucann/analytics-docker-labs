@@ -155,3 +155,133 @@ async def create_event(event: EventModel):
   
 </details>  
 
+
+### 4.3 Разработка фронтенда  
+Фронтенд реализован на Streamlit с удобным пользовательским интерфейсом.  
+Файл src/frontend/requirements.txt:  
+```bash
+streamlit==1.28.1
+requests==2.31.0
+pandas==2.1.3
+plotly==5.18.0
+openpyxl==3.1.2
+```
+
+### Основные функции фронтенда
+
+| Функция | Описание | Реализация |
+|:--------|:---------|:-----------|
+| **Загрузка событий из API** | Получение данных с бэкенда с кэшированием | `@st.cache_data(ttl=10)` |
+| **Фильтрация** | Поиск по названию, фильтр по месту, диапазон дат | `st.text_input`, `st.selectbox`, `st.date_input` |
+| **Экспорт данных** | Выгрузка в CSV и Excel форматы | `get_csv_download_link()`, `get_excel_download_link()` |
+| **Цветовая подсветка** | Визуальное выделение событий по датам (просроченные, сегодняшние, ближайшие) | `highlight_dates()` с CSS стилями |
+| **Редактирование событий** | Изменение существующих событий через форму | `update_event()` с предзаполненной формой |
+| **Удаление событий** | Удаление выбранных событий с подтверждением | `delete_event()` с кнопкой подтверждения |
+| **Статистика и графики** | Отображение метрик, графиков и аналитики | Plotly, `st.metric`, `st.progress` |
+| **Календарное отображение** | Визуализация событий по месяцам | `calendar` модуль, сетка календаря |
+
+### 4.4 Контейнеризация  
+Dockerfile для бэкенда (src/backend/Dockerfile):  
+```bash
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+```
+
+Dockerfile для фронтенда (src/frontend/Dockerfile):
+```bash
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 8501
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+```
+
+Сборка образов:
+```bash
+cd src/backend && docker build -t event-backend:v1 . && cd ../..
+cd src/frontend && docker build -t event-frontend:v1 . && cd ../..
+```
+
+### 4.5 Манифесты Kubernetes
+Файл k8s/fullstack.yaml содержит все необходимые ресурсы:
+
+*Secret - для хранения учетных данных MongoDB*  
+*Deployment для MongoDB*  
+*Service для MongoDB (ClusterIP)*  
+*Deployment для бэкенда*  
+*Service для бэкенда (ClusterIP)*  
+*Deployment для фронтенда*  
+*Service для фронтенда (LoadBalancer)*  
+
+Фрагмент манифеста с секретом:  
+```bash
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-secret
+type: Opaque
+data:
+  mongodb-root-username: YWRtaW4=  # admin
+  mongodb-root-password: bW9uZ29wYXNzMTIz  # mongopass123
+```
+
+Фрагмент манифеста с бэкендом:
+```bash
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: event-backend:v1
+        env:
+        - name: MONGO_URI
+          value: "mongodb://admin:mongopass123@mongodb-service:27017"
+        - name: DB_NAME
+          value: "events_db"
+        ports:
+        - containerPort: 8000
+```
+
+### 4.6 Развертывание и тестирование
+Развертывание приложения:
+
+```bash
+kubectl apply -f k8s/fullstack.yaml
+```
+
+Проверка статуса подов:
+```bash
+kubectl get pods
+```
+<img width="567" height="168" alt="image" src="https://github.com/user-attachments/assets/57c97a09-a704-4919-a92a-5ffa1ab1b268" />  
+
+Проверка сервисов:
+```bash
+kubectl get services
+```
+<img width="572" height="217" alt="image" src="https://github.com/user-attachments/assets/8ffce477-6716-4463-8c20-7ddce358776e" />  
+
+Доступ к приложению:
+```bash
+kubectl port-forward deployment/frontend-deployment 8501:8501
+```
+
+<img width="641" height="61" alt="image" src="https://github.com/user-attachments/assets/9eae4c3f-e74b-4595-86f2-c21bbd10bdbb" />  
+
