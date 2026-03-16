@@ -65,5 +65,93 @@ graph TD
 | **База данных** | Хранение информации о событиях | MongoDB |
 | **Бэкенд** | REST API для CRUD операций | FastAPI, Motor |
 | **Фронтенд** | Пользовательский интерфейс | Streamlit |
-| **Secret** | Безопасное хранение учетных данных | Kubernetes Secret |
+| **Secret** | Безопасное хранение учетных данных | Kubernetes Secret |  
+
+## Технологический стек
+Контейнеризация: Docker  
+Оркестрация: Kubernetes (Docker Desktop)  
+База данных: MongoDB 6.0  
+Бэкенд: FastAPI, Motor (асинхронный драйвер MongoDB)  
+Фронтенд: Streamlit, Pandas, Plotly, Requests  
+Язык программирования: Python 3.9  
+
+## Ход выполнения  
+### 4.1 Подготовка окружения  
+```bash
+# Создание структуры проекта
+mkdir -p lab_04.1/src/{backend,frontend}
+mkdir -p lab_04.1/k8s
+cd lab_04.1
+
+# Проверка работы Kubernetes
+kubectl get nodes  
+kubectl get pods -A  
+```
+
+<img width="539" height="72" alt="image" src="https://github.com/user-attachments/assets/f24af981-8a2f-4bf0-b5fa-a463f7e1c506" />  
+<img width="564" height="199" alt="image" src="https://github.com/user-attachments/assets/0f598669-7e09-4ea5-9167-3b31ec90e872" />  
+
+### 4.2 Разработка бэкенда
+Бэкенд реализован на FastAPI и предоставляет REST API для работы с событиями.
+Файл src/backend/requirements.txt:  
+```bash
+fastapi==0.104.1
+uvicorn==0.24.0
+motor==3.1.1
+pymongo==4.5.0
+pydantic==2.5.0
+python-multipart==0.0.6
+```
+
+<img width="179" height="98" alt="image" src="https://github.com/user-attachments/assets/32e84add-643b-4e8a-b869-0e503f8f789d" />  
+
+Фрагмент src/backend/main.py:  
+<details>
+  <summary> <u> ___src/backend/main.py___ </u> </summary>
+  
+  ```py
+from fastapi import FastAPI
+from motor.motor_asyncio import AsyncIOMotorClient
+from pydantic import BaseModel
+from typing import List, Optional
+from datetime import datetime
+import os
+
+app = FastAPI(title="Event Manager API")
+
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://admin:mongopass123@mongodb-service:27017")
+DB_NAME = os.getenv("DB_NAME", "events_db")
+
+class EventModel(BaseModel):
+    title: str
+    date: str
+    time: str
+    location: str
+    participants: List[str] = []
+    description: Optional[str] = None
+
+@app.on_event("startup")
+async def startup_db_client():
+    app.mongodb_client = AsyncIOMotorClient(MONGO_URI)
+    app.mongodb = app.mongodb_client[DB_NAME]
+    print("✅ Connected to MongoDB")
+
+@app.get("/events")
+async def get_events():
+    events = []
+    cursor = app.mongodb["events"].find()
+    async for document in cursor:
+        document["id"] = str(document.pop("_id"))
+        events.append(document)
+    return events
+
+@app.post("/events")
+async def create_event(event: EventModel):
+    result = await app.mongodb["events"].insert_one(event.dict())
+    created = await app.mongodb["events"].find_one({"_id": result.inserted_id})
+    created["id"] = str(created.pop("_id"))
+    return created
+  ```
+  
+</details>  
 
