@@ -315,6 +315,98 @@ kubectl port-forward deployment/frontend-deployment 8501:8501
 <img width="1467" height="781" alt="image" src="https://github.com/user-attachments/assets/b0895c46-c32a-4307-b9a5-6c6a4af4bc48" />  
 
 
+### Работа с CI/CD в GitHub  
+В проекте настроен автоматический пайплайн непрерывной интеграции с использованием **GitHub Actions**. При каждом push в репозиторий автоматически запускаются тесты и проверки.  
+
+### 📁 Структура CI/CD
+
+```yaml
+# .github/workflows/ci.yml
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]      # Запуск при push в main
+  pull_request:
+    branches: [ main ]       # Запуск при создании PR
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Test backend dependencies
+        run: |
+          cd src/backend
+          pip install -r requirements.txt
+          python -c "import fastapi; print(' FastAPI OK')"
+          python -c "import motor; print(' Motor OK')"
+      
+      - name: Test frontend dependencies
+        run: |
+          cd src/frontend
+          pip install -r requirements.txt
+          python -c "import streamlit; print(' Streamlit OK')"
+      
+      - name: Check YAML syntax
+        run: |
+          pip install yamllint
+          yamllint k8s/fullstack.yaml
+<img width="1462" height="778" alt="image" src="https://github.com/user-attachments/assets/1c2196ce-9567-4f38-9a16-09b5c9e35de4" />
+```
+
+### Что проверяется в CI
+
+| Этап | Проверка | Назначение |
+|:-----:|:---------|:-----------|
+| 1 | Checkout code | Получение кода из репозитория |
+| 2 | Setup Python | Настройка окружения Python |
+| 3 | Backend dependencies | Проверка зависимостей бэкенда |
+| 4 | Frontend dependencies | Проверка зависимостей фронтенда |
+| 5 | YAML syntax | Валидация Kubernetes манифестов |
+
+### Процесс разработки с CI/CD
+```bash
+# 1. Внесение изменений в код
+git add .
+git commit -m "feat: add new feature"
+
+# 2. Автоматический запуск CI при push
+git push origin main
+
+```
+<img width="603" height="257" alt="image" src="https://github.com/user-attachments/assets/4c0b68e0-a060-42dc-97a0-aa567a0e55a3" />
+
+### Версионирование  
+В проекте используется семантическое версионирование (SemVer):  
+```bash
+# Создание версий
+git tag v1.0.0  # базовая версия
+git tag v1.1.0  # добавлены уведомления и таймер
+git tag v2.0.0  # финальная версия с CI/CD
+
+# Отправка тегов на GitHub
+git push --tags
+```
+<img width="586" height="104" alt="image" src="https://github.com/user-attachments/assets/90966a7a-c787-4b6b-9bd9-3ce5c47ef1a6" />  
+
+*Статус пайплайна: Все проверки проходят успешно*   
+<img width="1453" height="335" alt="image" src="https://github.com/user-attachments/assets/15404f2b-79e5-444d-a985-2026fd3d54ec" />  
+<img width="1465" height="766" alt="image" src="https://github.com/user-attachments/assets/685dc729-9cbd-436d-846c-a2f7293c4582" />  
+
+### Ссылки
+
+- **Репозиторий на GitHub:** [https://github.com/cucann/event-manager](https://github.com/cucann/event-manager)
+- **GitHub Actions (CI/CD):** [https://github.com/cucann/event-manager/actions](https://github.com/cucann/event-manager/actions)
+- **Releases (версии):** [https://github.com/cucann/event-manager/releases](https://github.com/cucann/event-manager/releases)
+
 ## Вывод
 
 В результате выполнения лабораторной работы было разработано и развернуто в Kubernetes полнофункциональное приложение для управления корпоративными событиями (Event Manager). Приложение полностью соответствует требованиям и успешно решает бизнес-задачу по управлению корпоративными событиями, предоставляя пользователям удобный инструмент для планирования и анализа.
