@@ -76,6 +76,10 @@ graph TD
 Язык программирования: Python 3.9  
 
 ## Ход выполнения  
+
+### Структура проекта  
+<img width="294" height="233" alt="image" src="https://github.com/user-attachments/assets/a4f0d504-9bb5-4b08-8b9d-467ae277bc9e" />  
+
 ### 4.1 Подготовка окружения  
 ```bash
 # Создание структуры проекта
